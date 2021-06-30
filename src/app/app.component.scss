@@ -1,3 +1,58 @@
 :host {
-  
+  > * {
+    position: relative;
+    width: 100%;
+    display: block;
+    float: left;
+  }
+
+  #content {
+    height: 90vh;
+    background-color: red;
+
+    > * {
+      position: relative;
+      height: 100%;
+      display: block;
+      float: left;
+    }
+
+    ::ng-deep menu {
+      width: 20%;
+      background-color: green;
+    }
+
+    main {
+      width: 60%;
+      background: white;
+      > * {
+        position: relative;
+        width: 100%;
+        display: block;
+        float: left;
+      }
+    
+      ::ng-deep search {
+        height: 10%;
+        background-color: purple;
+      }
+
+      #page {
+        height: 90%;
+        background-color: wheat;
+      }
+    }
+
+    ::ng-deep playlist {
+      width: 20%;
+      background-color: blanchedalmond;
+    }
+
+
+  }
+
+  ::ng-deep player {
+    height: 10vh;
+    background-color: yellow;
+  }
 }

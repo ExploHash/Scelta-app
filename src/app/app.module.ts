@@ -6,12 +6,15 @@ import { CoreModule } from './core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PlayerComponent } from './components/player/player.component';
 
-
-import { HomeModule } from './home/home.module';
+import { HomeModule } from './pages/home/home.module';
+import { PlaylistComponent } from './components/playlist/playlist.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PlayerComponent, PlaylistComponent, MenuComponent, SearchComponent],
   imports: [
     BrowserModule,
     FormsModule,
