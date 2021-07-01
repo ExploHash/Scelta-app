@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { PlayerComponent } from './components/player/player.component';
 
 import { HomeModule } from './pages/home/home.module';
+import { LoginModule } from './pages/login/login.module';
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { SearchComponent } from './components/search/search.component';
@@ -17,6 +18,7 @@ import { SearchComponent } from './components/search/search.component';
   declarations: [AppComponent, PlayerComponent, PlaylistComponent, MenuComponent, SearchComponent],
   imports: [
     BrowserModule,
+    LoginModule,
     FormsModule,
     HttpClientModule,
     CoreModule,
