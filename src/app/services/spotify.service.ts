@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import base64url from "base64url";
-import shajs from "sha.js";
+import {sha256} from "js-sha256";
+var arrayBufferToBuffer = require('arraybuffer-to-buffer');
+
+import { SECRETS } from './../../secrets';
 
 @Injectable({
   providedIn: 'root'
@@ -16,25 +19,22 @@ export class SpotifyService {
 
   startAuthentication(){
     //First generate the code verifieer    
-
-    const codeVerifier = Array(128)
+    const codeVerifier = base64url(Array(64)
     .fill('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$')
     .map(x => x[Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] / (0xffffffff + 1) * x.length)])
-    .join('');
+    .join(''));
     //Save code challange in localStorage
     localStorage.setItem("codeVerifier", codeVerifier);
-
     //Generate the code challange
-    const codeChallenge = shajs('sha256').update(codeVerifier).digest('utf8');
-    const basedCodeChallenge = base64url(codeChallenge, "utf8");
-
+    const codeChallenge = sha256.arrayBuffer(codeVerifier);
+    const bufferedCodeChallenge = arrayBufferToBuffer(codeChallenge);
+    const basedCodeChallenge = base64url(bufferedCodeChallenge, "utf8");
 
     //Custruct authorization url
-    const clientId = "a";
     const scopes = "user-library-read user-modify-playback-state streaming user-read-email user-read-private";
     let url = "https://accounts.spotify.com/authorize?";
     const parameters = {
-      client_id: clientId,
+      client_id: SECRETS.spotifyClientId,
       response_type: "code",
       redirect_uri: encodeURIComponent("http://localhost:4200/login"),
       code_challenge_method: "S256",
@@ -49,11 +49,10 @@ export class SpotifyService {
   }
 
   finishAuthentication(code){
-    const clientId = "a";
     const codeVerifier = localStorage.getItem("codeVerifier");
 
     const params = {
-      client_id: clientId,
+      client_id: SECRETS.spotifyClientId,
       grant_type: "authorization_code",
       code,
       redirect_uri: "http://localhost:4200/login",
