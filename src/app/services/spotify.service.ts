@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import base64url from "base64url";
 import {sha256} from "js-sha256";
 var arrayBufferToBuffer = require('arraybuffer-to-buffer');
+
+const axios = require("axios");
+const qs = require("querystring");
 
 import { SECRETS } from './../../secrets';
 
@@ -11,11 +13,7 @@ import { SECRETS } from './../../secrets';
 })
 export class SpotifyService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
-
-
+  constructor() { }
 
   startAuthentication(){
     //First generate the code verifieer    
@@ -59,10 +57,28 @@ export class SpotifyService {
       code_verifier: codeVerifier
     }
 
-    const payload = new HttpParams({fromObject: params});
+    axios.post(
+      "https://accounts.spotify.com/api/token",
+      qs.stringify(params),
+    ).then(response => {
+      console.log(response);
+      if(response.status === 200){
+        localStorage.setItem("accessToken", response.data.access_token);
+        window.location.replace("/");
+      }else{
+        alert("Authentication went wrong");
+      }
+    });
+  }
 
-    let res = this.http.post("https://accounts.spotify.com/api/token", payload).subscribe(data => {
-      console.log(data);
-    })
+  async getUserData(){
+    const response = await axios.get(
+      "https://api.spotify.com/v1/me",
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("accessToken")}
+      }
+    );
+
+    console.log(response);
   }
 }
