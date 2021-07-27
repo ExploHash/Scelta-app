@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { SpotifyService } from '../../services/spotify.service';
+import { LibraryService } from '../../services/library.service';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +13,8 @@ export class HomeComponent {
 
   constructor(
     private router: Router,
-    private spotifyService: SpotifyService
+    private spotifyService: SpotifyService,
+    private libraryService: LibraryService
   ) { }
 
   ngOnInit(): void {
