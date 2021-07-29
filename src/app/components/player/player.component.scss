@@ -1,11 +1,33 @@
 :host {
   background-color: yellow;
-}
 
-.left {
-  display: inline-block;
-}
+    .left {
+      display: flex;
+      float: left;
+      margin: 5px;
+      margin-left: 20%;
+    }
+    
+    .right {
+      display: flex;
+      float: right;
+      margin: 5px;
+      margin-right: 10%;
+    }
 
-.right {
-  display: inline-block;
-}
+    #container {
+      display: flex;
+      float: inherit;
+      width: 750px;
+      margin: 5px;
+      border: 1px;
+      padding-left: 60px;
+      margin-top: 15px;
+
+      #progress-bar {
+        height: 1px;
+        width: 850px;
+        border: 1px solid black;
+      }
+    }
+  }
