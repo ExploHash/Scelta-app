@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 const databaseVersion = 1;
+const databaseName = "scelta";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class DataService {
   constructor() {}
 
   public init(){
-    const request = indexedDB.open("scelta", databaseVersion);
+    const request = indexedDB.open(databaseName, databaseVersion);
 
     request.onerror = (event) => {
       console.log("Why didn't you allow my web app to use IndexedDB?!");
@@ -43,4 +44,23 @@ export class DataService {
     //Create cached artists table
     db.createObjectStore("cachedArtists", { keyPath: "id" });
   }
+
+  public async insert(objectStoreName, object){
+    return new Promise((res, rej) => {
+      const transaction = this.db.transaction([objectStoreName], "readwrite");
+      const objectStore = transaction.objectStore(objectStoreName);
+
+      transaction.onError = (event) => {
+        rej(event);
+      }
+
+      transaction.oncomplete = (event) => {
+        res(event);
+      }
+
+      objectStore.add(object);
+    });
+  }
+
+  
 }

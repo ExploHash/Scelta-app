@@ -9,4 +9,10 @@ export class LibraryService {
   constructor(private dataService: DataService) {
     dataService.init();
   }
+
+  async createPlayList(name, type){
+    
+  }
+  
+
 }

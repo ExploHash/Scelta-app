@@ -53,11 +53,12 @@
     "arraybuffer-to-buffer": "^0.0.7",
     "axios": "^0.19.2",
     "base64url": "^3.0.1",
-    "buffer": "^5.7.1", 
+    "buffer": "^5.7.1",
     "js-sha256": "^0.9.0",
     "querystring": "^0.2.0",
     "rxjs": "6.6.6",
     "tslib": "2.1.0",
+    "uuidv4": "^6.2.11",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
