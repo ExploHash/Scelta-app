@@ -25,10 +25,21 @@
     #progress-bar {
       display: flex;
       height: 1px;
-      width: 800px;
+      width: 100%;
       border: 1px solid black;
       margin: 20px;
     }
   }
+
+  #play-icon {
+    width: 40px;
+    height: 40px;
+    background-size: 100% 100%;
+    &.play {
+      background-image: url("/assets/icons/svg/play.svg");
+    }
+    &.pause{
+      background-image: url("/assets/icons/svg/volume-2.svg");
+    }
+  }
 }
-  
