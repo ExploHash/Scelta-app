@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayerComponent implements OnInit {
   constructor() { }
+  public isPlaying = true;
 
   ngOnInit(): void {
   }
+
+  togglePlayButton() { 
+    this.isPlaying = !this.isPlaying;
+  }
 }
+
